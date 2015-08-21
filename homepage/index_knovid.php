@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>KnoVid Learning Platform | Online Learning Videos | School | College | Institute | Courses</title>
+	<!-- core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/owl.carousel.css" rel="stylesheet">
+    <link href="css/owl.transitions.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/knovid.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+    <script>
+        function funRegister()
+        {
+            window.top.location.href = "http://127.0.0.1/magento/customer/account/create";
+        }
+        function funLogin()
+        {
+            window.top.socialLogin();
+        }
+    </script>
+</head><!--/head-->
+
+<body id="home" class="homepage" style="padding-top: 0px;">
+<!-- <script>alert("<?php echo $_GET['log'] ?>");</script> -->
+    <!-- <section id="first">
+        <div class="container home-page" style="margin-right:0px;">
+            <div class="text-center" style="width:50%;padding-top:150px;">
+                <p style="font-size:16px;">free videos, for you to learn your college syllabus & entrance exams</p> <br>
+                <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
+                <?php if ( $_GET['log'] == 0 ) { ?>
+                <a class="btn btn-primary btn-lg" href="javascript:window.top.location.href='http://knovid.com/index.php/management.html'">Start Learning</a>
+                <?php } ?>
+                </p>
+            </div>
+        </div>
+    </section> -->
+
+	<section id="cta2">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms"><span>KnoVid</span> ONLINE ACADEMIC VIDEO CONTENTS</h2>
+                <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">KnoVid is an online Marketplace that helps Students learn their University syllabus through awesome videos <br />which are authored by Subject Matter Experts, College Professors and Industry Experts</p>
+                <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
+                <?php if ( $_GET['log'] == 0 ) { ?>
+                <a class="btn btn-primary btn-lg" href="javascript:window.top.location.href='http://knovid.com/index.php/management.html'">Start Learning</a>
+                <?php } ?>
+                </p>
+                <img class="img-responsive wow fadeIn" src="images/cta2/cta2-img.png" alt="" data-wow-duration="300ms" data-wow-delay="300ms">
+            </div>
+        </div>
+    </section>
+	<!-- 
+    <section id="cta" class="wow fadeIn">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h2>Who We Are</h2>
+                    <p>KnoVid is an aggregator of online academic video contents that are in the 
+					format of interactive short videos, arranged as concepts & chapters, 
+					so that students can quickly grasp concepts and solve problems..
+					</p>
+                </div>
+                <!-- <div class="col-sm-3 text-right">
+                    <a class="btn btn-primary btn-lg" href="#">Download Now!</a>
+                </div>-->
+            <!--</div>
+        </div>
+    </section><!--/#cta-->
+
+    <section id="features" style="background-color:#232A34; color:white;">
+        <div class="container" >
+            <div class="section-header">
+                <h2 class="section-title text-center wow fadeInDown" style="color:white;">How it Works</h2>
+                <!-- <p class="text-center wow fadeInDown">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam
+				</p> -->
+            </div>
+            <div class="row">
+                <div class="col-sm-6 wow fadeInLeft">
+                    <img class="img-responsive" src="images/main-feature.png" alt="">
+                </div>
+                <div class="col-sm-6">
+                    <div class="media service-box wow fadeInRight">
+                        <div class="pull-left">
+                            <i class="fa"></i>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="color:white;">Students</h4>
+                            <p>Quickly Learn your University Syllabus and Master your Exams using our awesome content tailored for offline learning…<a href="#student">Read More </a>
+							</p>
+                        </div>
+                    </div>
+
+                    <div class="media service-box wow fadeInRight">
+                        <div class="pull-left">
+                            <i class="fa "></i>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="color:white;">Tutors</h4>
+                            <p>Teach at the convenience of your home to a large student base...<a href="#tutors">Read More </a>
+							</p>
+                        </div>
+                    </div>
+
+                    <div class="media service-box wow fadeInRight">
+                        <div class="pull-left">
+                            <i class="fa "></i>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="color:white;">Coaching Institutes</h4>
+                            <p>Increase your student reach beyond the four walls of your institute...<a href="#Institutes">Read More </a>
+							</p>
+                        </div>
+                    </div>
+
+                    <div class="media service-box wow fadeInRight">
+                        <div class="pull-left">
+                            <i class="fa "></i>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="color:white;">Colleges</h4>
+                            <p>Offer Online Courses, right from your institute, to the vast student community...<a href="#college">Read More </a>
+							</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <section id="student">
+        <div class="container">
+
+            <div class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">Student</h2>
+                <p class="text-center wow fadeInDown">Quickly learn for your University Syllabus & Examinations using our awesome content tailored for offline learning…</p>
+            </div>
+
+            <div class="row">	
+                <div class="col-sm-6 wow fadeInLeft">
+                    <h3 class="column-title">Video Intro</h3>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe src="//player.vimeo.com/video/127387696?title=0&amp;byline=0&amp;portrait=0&amp;color=e79b39" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 wow fadeInRight">
+                    <h3 class="column-title">About</h3>
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					-->
+                    <div class="row">
+                        <div class="col-sm-15">
+                            <ul class="nostyle">
+                                <li style="padding-top:10px;"><i class="fa fa-check-square"></i> Learn faster through videos built for off classroom learning</li>
+                                <li style="padding-top:10px;"><i class="fa fa-check-square"></i> Content Specific to your University</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Courseware to help you in your Examinations</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Buy only those Chapter’s that you need</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Learn at your comfortable pace</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> 	Easily access anytime, anywhere</li>
+                            </ul>
+                        </div>
+						<!-- 
+                        <div class="col-sm-6">
+                            <ul class="nostyle">
+                                <li><i class="fa fa-check-square"></i> The printing and typesetting</li>
+                                <li><i class="fa fa-check-square"></i> Lorem Ipsum has been</li>
+                            </ul>
+                        </div> -->
+                    </div>
+
+                     
+                </div>
+            </div>
+        </div>
+    </section><!--/#students-->
+	
+	<section id="tutors">
+        <div class="container">
+
+            <div class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">Tutors</h2>
+                <p class="text-center wow fadeInDown">
+					Teach at the convenience of your home to a large student base...
+				</p>
+            </div>
+
+            <div class="row">	
+                
+
+                <div class="col-sm-6 wow fadeInRight">
+                    <h3 class="column-title">About</h3>
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					-->
+                    <div class="row">
+                        <div class="col-sm-15">
+                            <ul class="nostyle">
+                                <li style="padding-top:10px;"><i class="fa fa-check-square"></i> Record videos from the comfort of your home and earn</li>
+                                <li style="padding-top:10px;"><i class="fa fa-check-square"></i> We market your content</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Courseware to help you in your Examinations</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Build your professional brand image</li>
+                            </ul>
+                        </div>
+						<!-- 
+                        <div class="col-sm-6">
+                            <ul class="nostyle">
+                                <li><i class="fa fa-check-square"></i> The printing and typesetting</li>
+                                <li><i class="fa fa-check-square"></i> Lorem Ipsum has been</li>
+                            </ul>
+                        </div> -->
+                    </div>
+
+                     
+                </div>
+				<div class="col-sm-6 wow fadeInLeft">
+                    <h3 class="column-title">Video Intro</h3>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe src="//player.vimeo.com/video/127387694?title=0&amp;byline=0&amp;portrait=0&amp;color=e79b39" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--/#tutors-->
+	
+	    <section id="Institutes">
+        <div class="container">
+
+            <div class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">Coaching Institutes</h2>
+                <p class="text-center wow fadeInDown">Increase your student reach beyond the four walls of your institute…</p>
+            </div>
+
+            <div class="row">	
+                <div class="col-sm-6 wow fadeInLeft">
+                    <h3 class="column-title">Video Intro</h3>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe src="//player.vimeo.com/video/127387633?title=0&amp;byline=0&amp;portrait=0&amp;color=e79b39" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 wow fadeInRight">
+                    <h3 class="column-title">About</h3>
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					-->
+                    <div class="row">
+                        <div class="col-sm-15">
+                            <ul class="nostyle">
+                                <li style="padding-top:10px;"><i class="fa fa-check-square"></i> Focus on Content while we manage Technology</li>
+                                <li style="padding-top:10px;"><i class="fa fa-check-square"></i> A niche platform to promote your interactive, engaging content to focussed user groups</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Larger reach of your content through KnoVid’s focussed marketing</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Brand & promote your Institute</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Additional source of revenue</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Analytics to improve your Content</li>
+                            </ul>
+                        </div>
+						<!-- 
+                        <div class="col-sm-6">
+                            <ul class="nostyle">
+                                <li><i class="fa fa-check-square"></i> The printing and typesetting</li>
+                                <li><i class="fa fa-check-square"></i> Lorem Ipsum has been</li>
+                            </ul>
+                        </div> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section><!--/#institutes-->
+	
+	<section id="college">
+        <div class="container">
+
+            <div class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">Colleges</h2>
+                <p class="text-center wow fadeInDown">
+					Offer Online Courses, right from your institute, to the vast student community...
+				</p>
+            </div>
+
+            <div class="row">	
+                
+
+                <div class="col-sm-6 wow fadeInRight">
+                    <h3 class="column-title">About</h3>
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					-->
+                    <div class="row">
+                        <div class="col-sm-15">
+                            <ul class="nostyle">
+                                <li style="padding-top:10px;"><i class="fa fa-check-square"></i> Wider reach of audience across geography including the underprivileged</li>
+                                <li style="padding-top:10px;"><i class="fa fa-check-square"></i> Promote University’s great work & reputation to targeted audience</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Foster Innovation through larger engagement of Students and Faculty</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Competitively position University’s faculty to global standards of education delivery</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Additional revenue source through Professional Development Certifications</li>
+								<li style="padding-top:10px;"><i class="fa fa-check-square"></i> Leverage Alumni Chapters for Industry specific training</li>
+
+                            </ul>
+                        </div>
+						<!-- 
+                        <div class="col-sm-6">
+                            <ul class="nostyle">
+                                <li><i class="fa fa-check-square"></i> The printing and typesetting</li>
+                                <li><i class="fa fa-check-square"></i> Lorem Ipsum has been</li>
+                            </ul>
+                        </div> -->
+                    </div>
+
+                
+                </div>
+				<div class="col-sm-6 wow fadeInLeft">
+                    <h3 class="column-title">Video Intro</h3>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe src="//player.vimeo.com/video/127387695?title=0&amp;byline=0&amp;portrait=0&amp;color=e79b39" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--/#college-->
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/mousescroll.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/jquery.inview.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/main.js"></script>
+	
+</body>
+</html>

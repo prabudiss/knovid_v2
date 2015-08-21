@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Nuvodev_Page>
+      <version>0.1.0</version>
+    </Nuvodev_Page>
+  </modules>
+  <global>
+	<blocks>
+	  <nuvodev_page>
+		<class>Nuvodev_Page_Block</class>
+	  </nuvodev_page>
+	  <page>
+	  		<rewrite>
+	  			<html_welcome>Nuvodev_Page_Block_Html_Welcome</html_welcome>
+	  		</rewrite>
+	  </page>
+	</blocks>
+  </global>
+</config>

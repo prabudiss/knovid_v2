@@ -1,0 +1,339 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php 
+
+$_helper = $this->helper('catalog/output'); 
+$course_helper = Mage::helper("courses/data");
+$course_mod = Mage::getModel('courses/book');
+
+//Get the Parent Book ID.
+$_product = $course_helper->getBookId($this->getProduct());
+
+//Get the Selected/First Chapter ID
+$_ChapSelect = $course_helper->getChapter($this->getProduct());
+
+if (null == $_ChapSelect) {
+    echo "<script>alert('No Cahpters are added for this book, Please try again later');</script>";
+    return;
+}
+
+$book_subscribed = false;
+
+// Check for the book subscription
+if ($course_mod->checkSubscription($_product)) {
+    $book_subscribed = true;
+} 
+
+?>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1445440885776740";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<input type=hidden id="prod_baseurl" value="<?php echo Mage::getBaseUrl() ?>" />
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="product-view">
+    <div class="product-essential">
+
+    <?php if (!$book_subscribed) { ?>
+        <form action="javascript:thiscartpopup.submitAction('<?php echo $_product->getId() ?>','<?php echo $this->getSubmitUrl($_product) ?>')" method="post" id="product_addtocart_form_<?php echo $_product->getId(); ?>">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <div class="no-display">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="hidden" name="related_product" id="related-products-field" value="" />
+                <input type="text" pattern="\d*" name="qty" id="qty" maxlength="12" value="1" />
+                <input type="hidden" id="price_<?php echo round($_product->getId()) ?>" name="price_<?php echo round($_product->getId()) ?>" value="<?php echo $_product->getPrice() ?>" />
+            </div>
+    <?php } ?>
+            <div class="product-shop">
+                <div style="float:left;padding-right:10px;"> 
+                    <img src="<?php echo $this->getSkinUrl('images/knovid/knovid_50.png') ?>" />
+                </div>
+                <div class="product-name">
+                    <span class="h1">
+                        <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                    </span>
+                    <br>
+                    <!--Author : Knovid.com -->
+                    
+                    <?php $productName = $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                    <?php $productUrl = $_helper->productAttribute($_product, $_product->getProductUrl(), 'product_url'); ?>
+                    <?php $productImage = $_product->getImageUrl() ?>
+
+                    <!-- <div class="fb-share-button" data-href="<?php echo urlencode($productUrl); ?>" data-layout="button"></div>-->
+                    <div style="float:left;padding-right:5px;">
+                    <a href="javascript:popWin('https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($productUrl); ?>&t=<?php echo urlencode($productName); ?>', 'facebook', 'width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes');" title="<?php echo $this->__('Share on Facebook') ?>"><div class="fb-share-button" data-layout="button"></div></a>
+                    </div>
+                    <!-- <a href="javascript:popWin('https://plus.google.com/share?url=<?php echo urlencode($productUrl); ?>', 'google', 'width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes');" title="<?php echo $this->__('Share on Google Plus') ?>">Google Plus</a> -->
+                    <div style="float:none;">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="knovid" data-count="none">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                    </div>
+
+                </div>
+    <?php if (!$book_subscribed) { ?>
+                <div class="price-info">
+                    <button title='Subscbribe' class=button>
+                        <span><span>
+                            <?php 
+                                if (round($_product->getPrice()) > 0 ) { 
+                                    echo "Buy [Rs." . round($_product->getPrice()) . "]";
+                                } else {
+                                    echo "Subscribe";
+                                }
+                            ?>    
+                        </span></span>
+                    </button>
+                </div>
+
+                
+
+                
+    <?php } ?>
+            </div>
+    <?php if (!$book_subscribed) { ?>
+        </form>
+    <?php } ?>        
+    </div>
+
+    <?php
+        $allRelatedProductIds = $_product->getRelatedProductIds();
+        foreach ($allRelatedProductIds as $id) {
+            $related_ids[] = $id;    
+        }
+        //$rel_product = Mage::getModel('catalog/product')->load($related_ids[0]);
+    ?>
+
+    <section name="Learning">
+        <div id="divVideoContent">
+            <div class='video_locked'>
+                <div id='video_sub_controls'>
+                    &nbsp;
+                </div>
+            </div>
+            <div class="product-videobottom">
+                <span>
+                    <span>
+                        Loading...
+                    </span>
+                    <span style="font-size:12px;">
+                        &nbsp;
+                    </span>
+                </span>
+            </div>
+        </div>
+        
+        <!-- <?php 
+            $rel_product = Mage::getModel('catalog/product')->load($id);
+        ?>-->
+    </section>
+
+
+
+    <div class="product-collateral toggle-content tabs">
+
+        <!-- BEGIN : Capter section -->
+        <div class="product-chapsection" style="padding:0px;">
+            <div class="product-chapheder" style="text-align:center;background-color:#f4f4f4;border-bottom: 1px solid #cccccc;padding:10px;font-size:12px;"    
+            >CONTENT</div>
+            <div class="" style="padding: 7px 10px 7px 24px;">
+            <div class="content-area">
+                <?php
+
+                           
+                
+                if ($_product->getParentId() == "") { //Book
+                    foreach ($allRelatedProductIds as $id) {
+                        $rel_product = Mage::getModel('catalog/product')->load($id);
+                        //$cnt++;
+                        ?>
+                        <div class="chapter-tab-content">
+                        <form action="javascript:thiscartpopup.submitAction('<?php echo $id ?>','<?php echo $this->getSubmitUrl($rel_product) ?>')" method="post" id="product_addtocart_form_<?php echo $id; ?>">
+                         <div class="no-display">
+                            <input type="hidden" name="product_<?php echo round($rel_product->getId()) ?>" value="<?php echo $rel_product->getId() ?>" />
+                            <input type="hidden" id="price_<?php echo round($rel_product->getId()) ?>" name="price_<?php echo round($rel_product->getId()) ?>" value="<?php echo $rel_product->getPrice() ?>" />
+                            <input type="hidden" name="related_product" id="related-products-field" value="" />
+                            <input type="text" pattern="\d*" name="qty" id="qty" maxlength="12" value="1" />
+                        </div>
+                          
+                        <!-- Check whether chapter is subscribed -->
+                        <?php 
+                                $chap_subscribed = false;
+
+                                if ($book_subscribed) {
+                                    $chap_subscribed = true;
+                                }
+                                else if ($course_mod->checkSubscription($rel_product)) {
+                                    $chap_subscribed = true;
+                                }                             
+                        ?>
+                        <ul id="navChapter">
+                            <li style="height:40px;">
+                            <div class="chapter-name">
+                                <?php echo $rel_product->getName() ?>
+                            </div>
+
+                            <?php 
+                            if (!$chap_subscribed)
+                            {
+                            ?>
+                            <div class="chapter-subcription">
+                                <!-- <a href="javascript:;;" onclick="product_addtocart_form_<?php echo $id;?>.submit()"> 
+                                    ₹<? if ($rel_product->getPrice() == 0) { echo "Free"; } else { echo round($rel_product->getPrice()); }?>
+                                    <img style="display:inline;" src="<?php echo $this->getSkinUrl('images/knovid/cart_add.png') ?>"/>
+                                </a>-->
+                                <button title='Subscbribe' class='button' style="font-size:10px;padding:5px;padding-top:2px;padding-bottom:2px;min-width:70px;color:white;">
+                                    <span><span style="color:white;"> 
+                                        <?php 
+                                            if (round($rel_product->getPrice()) > 0 ) { 
+                                                echo "Buy [Rs." . round($rel_product->getPrice()) . "]";
+                                            } else {
+                                                echo "Subscribe";
+                                            }
+                                        ?>   
+                                    </span></span>
+                                </button>
+                            </div>
+                            <?php } ?>
+                            </li>
+                            <?php
+                            for ($i = 1; $i <= 10; $i++) {
+                                $fn_name = "getVideoName_" . $i;
+                                $vid_url = "getVideoUrl_" . $i;
+                                $vid_free = "getVideoFree_" . $i;
+                                ?>
+                                <?php if ($rel_product->$fn_name()) { ?>
+                                    <a href="javascript:;;"> 
+                                        <li <?php if ($chap_subscribed || $rel_product->$vid_free() ) { ?> class="chapter-unlocked" <?php } else { ?> class="chapter-locked" <?php } ?>  
+                                            onclick="javascript:loadVideo('<?php echo $rel_product->getId(); ?>',
+                                                                          '<?php echo $i; ?>',this);">
+                                                <?php echo $rel_product->$fn_name() ?>
+                                            
+                                        </li>       
+                                    </a>
+                                <?php } ?>
+                            <?php } ?>
+                        </ul>
+                        </form>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                                var productAddToCartForm = new VarienForm('product_addtocart_form');
+                                productAddToCartForm.submit = function(button, url) {
+                                    if (this.validator.validate()) {
+                                        var form = this.form;
+                                        var oldUrl = form.action;
+
+                                        if (url) {
+                                           form.action = url;
+                                        }
+                                        var e = null;
+                                        try {
+                                            this.form.submit();
+                                        } catch (e) {
+                                        }
+                                        this.form.action = oldUrl;
+                                        if (e) {
+                                            throw e;
+                                        }
+
+                                        if (button && button != 'undefined') {
+                                            button.disabled = true;
+                                        }
+                                    }
+                                }.bind(productAddToCartForm);
+
+                                productAddToCartForm.submitLight = function(button, url){
+                                    if(this.validator) {
+                                        var nv = Validation.methods;
+                                        delete Validation.methods['required-entry'];
+                                        delete Validation.methods['validate-one-required'];
+                                        delete Validation.methods['validate-one-required-by-name'];
+                                        // Remove custom datetime validators
+                                        for (var methodName in Validation.methods) {
+                                            if (methodName.match(/^validate-datetime-.*/i)) {
+                                                delete Validation.methods[methodName];
+                                            }
+                                        }
+
+                                        if (this.validator.validate()) {
+                                            if (url) {
+                                                this.form.action = url;
+                                            }
+                                            this.form.submit();
+                                        }
+                                        Object.extend(Validation.methods, nv);
+                                    }
+                                }.bind(productAddToCartForm);
+                            //]]>
+                            </script>
+                    </div>
+                        <?php
+                    } //Foreach
+                } //If
+                        ?>
+                
+            </div>
+            </div>
+      </div>
+      <!-- Capter section END -->
+
+        <?php if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml')):?>
+            <dl id="collateral-tabs" class="collateral-tabs">
+                <?php foreach ($detailedInfoGroup as $alias => $html):?>
+                    <dt class="tab"><span><?php echo $this->escapeHtml($this->getChildData($alias, 'title')) ?></span></dt>
+                    <dd class="tab-container">
+                        <div class="tab-content"><?php echo $html ?></div>
+                    </dd>
+                <?php endforeach;?>
+            </dl>
+        <?php endif; ?>
+    </div>
+
+    <?php echo $this->getChildHtml('upsell_products') ?> 
+    <?php echo $this->getChildHtml('product_additional_data') ?> 
+
+</div>
+
+<script type="text/javascript">
+            loadVideo("<?php echo $related_ids[0]; ?>",
+                    "1", null   );
+</script>

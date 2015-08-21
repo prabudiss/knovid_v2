@@ -1,0 +1,291 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+
+<?php
+  $course_helper = Mage::helper("courses");
+
+  //Connection DB for no reason.
+  $db = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+  $_helper = $this->helper('catalog/output'); 
+?>
+
+
+<!-- Getting the product information -->
+<?php $_product = $this->getProduct();
+
+  $db = Mage::getSingleton('core/resource')->getConnection('core_write');
+  $videos = $db->fetchRow("select * from custom_ordered_products CO inner join sales_flat_order S on S.entity_id = CO.order_id where S.status='complete' and CO.prod_id=".$_product->getId());
+
+  $productType = $_product->getTypeID();
+?>
+
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?>
+</div>
+
+<div class="" style="">
+  <div class="">
+    <form action="<?php echo $this->getBaseUrl() ?>/checkout/cart/add/product/<?php echo $_product->getId() ."/". $formKey."/"; ?>" method="post">
+      <div class="knovid-video">
+        <div class="knovid-video-name">
+          <span class="knovid-h1"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
+        </div>
+
+      </div>
+    </form>       
+  </div>
+</div>
+
+<!--  -->
+
+<div class="col-main abt-inner-right acc-right">
+  <div class="v-slide">
+      <div class="v-slide1 v-slide1-ch">
+      <h1 class="fvhead1 fvhead1-ch"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+
+      
+      <span class="isocial">
+      	<a href=""> <i class="fa fa-google-plus fa-lg"></i> </a>
+      	<a href=""> <i class="fa fa-facebook fa-lg"></i> </a>
+      	<a href=""> <i class="fa fa-twitter fa-lg"></i> </a>
+      </span>
+      
+
+      </h1>
+      <h2 class="fvhead1 fvhead1-ch">&nbsp;&nbsp;&nbsp;
+      <span class="course-ques">
+      Rs. <?php echo round($_product->getPrice()); ?>
+      <form style="float:right" action="<?php echo $this->getBaseUrl() ?>/checkout/cart/add/product/<?php echo $_product->getId() ."/". $formKey."/"; ?>" method="post">
+		<input type="hidden" name="form_key" value="<?php echo $formKey; ?>" />
+		<input type="hidden" name="qty" value="1" > 
+		<input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />	  
+		<button style="background: none; border: 0px none; float: left;" type="submit"><span class="icart"><img src="<?php echo $this->getSkinUrl('images/cart.png') ?>">Subscribe</span></button>
+	</form>
+      
+     </span>
+      </h2>
+      <div class="locked_video"><img src="<?php echo $this->getSkinUrl() ?>images/locked-knovid.jpg"></div>
+      <div class="video_frame">
+			
+              <?php if($_product->getVideoUrl() != "" && $videos['prod_id'] != "") {
+                  $youtube_code = explode("=",$_product->getVideoUrl());
+              ?>
+              <iframe width="953" height="471" src="//www.youtube.com/embed/<?php echo $youtube_code[1] ?>?rel=0" frameborder="0" allowfullscreen></iframe>
+              <?php } else if($_product->getDemoUrl() != "") {
+                  $youtube_code = explode("=",$_product->getDemoUrl());
+                  ?>
+              <iframe width="953" height="471" src="//www.youtube.com/embed/<?php echo $youtube_code[1] ?>?rel=0" frameborder="0" allowfullscreen></iframe>
+              <?php } else { 
+                  ?>
+              <a href=""><?php echo $_helper->productAttribute($_product, $_img, 'image'); ?></a>
+              <?php } ?>	  
+      </div>
+      
+      <div class="ch-details">
+      	<h4><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h4>
+      	<p><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></p>
+      </div>
+<?php
+
+//Get Items in Cart
+
+$cart = Mage::getModel('checkout/cart')->getQuote();
+foreach ($cart->getAllItems() as $item) {
+    $prod_in_cart[] = $item->getProductId();
+}
+
+
+//$db = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+// Get all related product ids of $product.
+$allRelatedProductIds = $_product->getRelatedProductIds();
+foreach ($allRelatedProductIds as $id) {
+    $related_ids[] = $id;    
+}
+
+$total_chapters = count($related_ids);
+$subscribed = 0;
+
+if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+    $customer_id = Mage::getSingleton('customer/session')->getCustomer()->getId();
+    $logged_in = true;
+}
+
+if($customer_id)
+{
+    $orders = Mage::getResourceModel('sales/order_collection')
+        ->addFieldToFilter('customer_id', $customer_id)
+        ->addAttributeToSort('created_at', 'DESC');
+
+    foreach($orders as $ord)
+    {
+        $order = Mage::getModel('sales/order')->load($ord->getId());
+        $items = $order->getAllItems();
+        foreach ($items as $itemId => $item)
+        {
+            $prod_id=$item->getProductId();
+            $product = Mage::getModel('catalog/product')->load($prod_id);
+            $validity = $product->getValidity();
+            if(strtotime($item->getCreatedAt() + $validity ."Days") > (strtotime("Now"))) $ordered_products[] = $item->getProductId();
+            if(array_search($prod_id, $related_ids)!==false)
+            {
+                $subscribed++;
+            }
+
+        }
+    }
+}
+
+if($subscribed > $total_chapters) $subscribed = $total_chapters;
+$cnt = 0;
+?>      
+      <div class="mid-section">
+      <div class="col-2">
+      	<div class="ch-content">
+      		<h3>Content</h3>
+      		<div id="fixed-thumb-size-demo" class="gray-skin demo">
+      		<div class="content-area">
+                <?php
+                if ($_product->getParentId() == "") { //Book
+                    foreach ($allRelatedProductIds as $id) {
+						$rel_product = Mage::getModel('catalog/product')->load($id);
+						$cnt++;
+						
+                        if(array_search($prod_id, $ordered_products)!==false)
+                        {
+                            $vid_code = $course_helper->getYoutubeCode($rel_product->getVideoUrl());
+                            $purchased = true;
+                        }
+                        else 
+                        {
+                            $vid_code = $course_helper->getYoutubeCode($rel_product->getDemoUrl());
+                            $purchased = false;
+                        }
+                        ?>
+						<div class="ch-head">
+							<p class="list_chap_desc" style="display:none;"><?php echo nl2br($rel_product->getShortDescription()) ?></p>
+							<input type="hidden" class="list_chap_validity" value="<?php echo $rel_product->getValidity() ?>">
+							<input type="hidden" class="list_chap_name" value="<?php echo $rel_product->getName() ?>">
+							<input type="hidden" class="list_chap_price" value="<?php echo round($rel_product->getPrice()); ?>">
+							<p class="p1"><?php echo $cnt ?>. <?php echo $rel_product->getName() ?></p>
+							<p class="p2">
+							<?php if(($logged_in && $purchased)) { ?>
+									<span class="icart">Subscribed</span>
+							<?php }else{ ?>
+								<?php if(count($prod_in_cart) && array_search ( $rel_product->getId() , $prod_in_cart) !== false) { ?>
+								<span class="icart added_to_cart" style="display:block">Added to Cart</span>
+								<?php }else{ ?>
+								Rs. <?php echo round($rel_product->getPrice()); ?>
+									<a href="javascript:;" class="add_product" prod_id="<?php echo $rel_product->getId() ?>" ><span class="icart "><img src="<?php echo $this->getSkinUrl('images/cart.png') ?>">Subscribe</span></a>
+									<span class="icart added_to_cart">Added to Cart</span>							
+									<?php } ?>
+							<?php } ?>
+							</p>
+						</div>						
+                        <ul class="chs" <?php if($cnt == 1) { //First chapter only ?> style="display:block" <?php } ?>>
+                            <?php
+                            for ($i = 1; $i <= 10; $i++) {
+                                $fn_name = "getVideoName_" . $i;
+                                $vid_url = "getVideoUrl_" . $i;
+								$vid_free = "getVideoFree_" . $i;
+                                $vid_code = $course_helper->getYoutubeCode($rel_product->$vid_url());
+                                ?>
+                                <?php if ($rel_product->$fn_name()) { ?>
+										<?php if ($logged_in && $purchased || $rel_product->$vid_free()) { ?>
+                                        <li>
+                                                <a href="javascript:;" class="section_link" video_key="<?php echo $vid_code ?>"><?php echo $rel_product->$fn_name() ?></a>
+										</li>		
+                                            <?php } else { ?>
+										<li class="lock"><a href="javascript:;" class="section_link"><?php echo $rel_product->$fn_name() ?></a></li>	
+                                           <?php } ?>
+                                    <?php } ?>
+                                <?php } ?>
+                        </ul>
+
+                            <?php
+                        } //Foreach
+				} //If
+						?>
+     			
+      		</div>
+      		</div>
+      	</div>
+      </div>
+      
+      <div class="product-collateral toggle-content tabs">
+      	<div class="tabs-area">
+      		<div class="tabs">
+			    <ul class="tab-links">
+			        <li class="active"><a href="#tab1">Description</a></li>
+			        <li><a href="#tab2">Reviews &amp; Comment</a></li>
+			    </ul>
+			    <div class="tab-content">
+				    <div id="tab1" class="tab
+             active">
+				        <h6 class="tab_chap_name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h6>
+				        <div class="tab_desc ex-details">
+				        	<!-- <span><img src="<?php echo $this->getSkinUrl('images/clock.png') ?>">2h 3m</span> -->
+
+
+                  <!--
+
+                  SECOND COMMENT
+
+				        	<span class="otherattr" style="display:inline;">Valid : <span class="tab_validity"><?php $_product->getValidity(); ?></span> days</span>
+				        	<span class="otherattr"  style="display:inline;">Rs. <span class="tab_price"><?php echo round($_product->getPrice()); ?></span></span>
+				        	<p class="tab_chap_desc">
+								<?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?>
+							</p>
+				        </div>
+				    </div>
+				 
+				    <div id="tab2" class="tab">
+				       <h6><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h6>
+				        <p><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></p>
+				    </div>				    
+				</div>
+			</div>
+      	</div>
+      </div>
+      
+      </div>
+       
+      </div><!-- v-slide1 ends here ->
+  </div><!-- v-slide ends here ->
+
+<?php echo $this->getLayout()->createBlock('reports/product_viewed')->setTemplate('reports/product_viewed.phtml')->toHtml() ?>
+                       </div>

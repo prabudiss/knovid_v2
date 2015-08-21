@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Nuvodev_Banners>
+      <version>0.1.0</version>
+    </Nuvodev_Banners>
+  </modules>
+  <global>
+    <helpers>
+      <banners>
+        <class>Nuvodev_Banners_Helper</class>
+      </banners>
+    </helpers>
+	<blocks>
+	  <banners>
+		<class>Nuvodev_Banners_Block</class>
+	  </banners>
+	</blocks>
+	<models>
+	  <banners>
+		<class>Nuvodev_Banners_Model</class>
+		<resourceModel>banners_mysql4</resourceModel>
+	  </banners>
+	  <banners_mysql4>
+		<class>Nuvodev_Banners_Model_Mysql4</class>
+		<entities>		  
+			  <homepage>
+				<table>custom_homepage_banner</table>
+			  </homepage>		  
+			  <featured>
+				<table>custom_featured</table>
+			  </featured>
+		</entities>
+	  </banners_mysql4>
+	</models>
+	<resources>
+	  <banners_setup>
+		<setup>
+		  <module>Nuvodev_Banners</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </banners_setup>
+	  <banners_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </banners_write>
+	  <banners_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </banners_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <banners>
+	    <use>admin</use>
+		<args>
+		  <module>Nuvodev_Banners</module>
+		  <frontName>admin_banners</frontName>
+		</args>
+	  </banners>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <banners module="banners">
+		<title>Banners</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <homepage module="banners">
+		    <title>Manage Homepage</title>
+			<sort_order>0</sort_order>
+			<action>admin_banners/adminhtml_homepage</action>
+		  </homepage>
+		  <featured module="banners">
+		    <title>Manage Featured</title>
+			<sort_order>10</sort_order>
+			<action>admin_banners/adminhtml_featured</action>
+		  </featured>
+		</children>
+	  </banners>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<banners translate="title" module="banners">
+			  <title>Banners</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <homepage translate="title">
+			<title>Manage Homepage</title>
+			<sort_order>0</sort_order>
+		  </homepage>
+		  <featured translate="title">
+			<title>Manage Featured</title>
+			<sort_order>10</sort_order>
+		  </featured>
+			  </children>
+			</banners>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<banners>
+		  <file>banners.xml</file>
+		</banners>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

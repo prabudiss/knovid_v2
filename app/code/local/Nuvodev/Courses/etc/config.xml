@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Nuvodev_Courses>
+      <version>0.1.0</version>
+    </Nuvodev_Courses>
+  </modules>
+  <frontend>
+    <routers>
+      <courses>
+        <use>standard</use>
+          <args>
+            <module>Nuvodev_Courses</module>
+            <frontName>courses</frontName>
+          </args>
+      </courses>
+    </routers>
+		
+  </frontend>
+  <global>
+    <helpers>
+      <courses>
+        <class>Nuvodev_Courses_Helper</class>
+      </courses>
+    </helpers>
+	<blocks>
+	  <courses>
+		<class>Nuvodev_Courses_Block</class>
+	  </courses>
+	</blocks>
+  <models>
+      <courses>
+          <class>Nuvodev_Courses_Model</class>
+      </courses>
+ </models>
+  </global>
+</config> 
